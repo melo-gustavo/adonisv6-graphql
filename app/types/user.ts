@@ -1,6 +1,16 @@
-export interface UserType {
-  name: string
-  email: string
-  password: string
-  avatar?: string | null
+import { Field, InputType } from '@foadonis/graphql'
+
+@InputType()
+export class UserInput {
+  @Field(() => String)
+  declare name: string
+
+  @Field(() => String)
+  declare email: string
+
+  @Field(() => String)
+  declare password: string
+
+  @Field(() => String, { nullable: true })
+  declare avatar?: string | null
 }

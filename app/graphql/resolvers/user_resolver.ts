@@ -1,6 +1,7 @@
 import User from '#models/user'
 import UserService from '#services/user_service'
-import { Query, Resolver } from '@foadonis/graphql'
+import { UserInput } from '#types/user'
+import { Arg, Int, Mutation, Query, Resolver } from '@foadonis/graphql'
 
 const userService = new UserService()
 
@@ -8,26 +9,29 @@ const userService = new UserService()
 export default class UserResolver {
   @Query(() => [User])
   async getAllUsers() {
-    return userService.getAllUsers()
+    return userService.getAll()
   }
 
   @Query(() => User)
-  async userById(id: number) {
+  async getUserById(@Arg('id', () => Int) id: number) {
     return userService.findById(id)
   }
 
-  @Query(() => User)
-  async createUser(payload: any) {
+  @Mutation(() => User)
+  async createUser(@Arg('payload', () => UserInput) payload: UserInput) {
     return userService.create(payload)
   }
 
-  @Query(() => User)
-  async updateUser(id: number, payload: any) {
+  @Mutation(() => User)
+  async updateUser(
+    @Arg('id', () => Int) id: number,
+    @Arg('payload', () => UserInput) payload: UserInput
+  ) {
     return userService.update(id, payload)
   }
 
-  @Query(() => Boolean)
-  async deleteUser(id: number) {
+  @Mutation(() => Boolean)
+  async deleteUser(@Arg('id', () => Int) id: number) {
     return userService.delete(id)
   }
 }
