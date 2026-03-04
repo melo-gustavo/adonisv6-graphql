@@ -1,8 +1,8 @@
 import User from '#models/user'
-import type { UserType } from '#types/user'
+import { UserInput } from '#types/user'
 
 export default class UserService {
-  async getAllUsers() {
+  async getAll() {
     return User.all()
   }
 
@@ -10,11 +10,11 @@ export default class UserService {
     return User.findOrFail(id)
   }
 
-  async create(payload: UserType) {
+  async create(payload: UserInput) {
     return User.create(payload)
   }
 
-  async update(id: number, payload: UserType) {
+  async update(id: number, payload: UserInput) {
     const user = await User.findOrFail(id)
     user.merge(payload)
     await user.save()

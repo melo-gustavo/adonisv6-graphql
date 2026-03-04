@@ -3,15 +3,35 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Enrollment {
+  courseId: Float!
+  createdAt: LuxonDateTime!
+  id: ID!
+  updatedAt: LuxonDateTime!
+  userId: Float!
+}
+
+input EnrollmentInput {
+  courseId: Float!
+  userId: Float!
+}
+
 """Luxon Date scalar type"""
 scalar LuxonDateTime
 
+type Mutation {
+  createEnrollment(payload: EnrollmentInput!): Enrollment!
+  createUser(payload: UserInput!): User!
+  deleteEnrollment(id: Int!): Boolean!
+  deleteUser(id: Int!): Boolean!
+  updateUser(id: Int!, payload: UserInput!): User!
+}
+
 type Query {
-  createUser: User!
-  deleteUser: Boolean!
+  getAllEnrollments: [Enrollment!]!
   getAllUsers: [User!]!
-  updateUser: User!
-  userById: User!
+  getEnrollmentById(id: Int!): Enrollment!
+  getUserById(id: Int!): User!
 }
 
 type User {
@@ -22,4 +42,11 @@ type User {
   name: String
   password: String
   updatedAt: LuxonDateTime!
+}
+
+input UserInput {
+  avatar: String
+  email: String!
+  name: String!
+  password: String!
 }
