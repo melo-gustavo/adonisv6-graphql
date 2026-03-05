@@ -14,3 +14,18 @@ export class UserInput {
   @Field(() => String, { nullable: true })
   declare avatar?: string | null
 }
+
+@InputType()
+export class UserUpdateInput {
+  @Field(() => String, { nullable: true })
+  declare name?: string
+
+  @Field(() => String, { nullable: true })
+  declare email?: string
+
+  @Field(() => String, { nullable: true })
+  declare password?: string
+
+  @Field(() => String, { nullable: true })
+  declare avatar?: string | null
+}

@@ -6,4 +6,6 @@ export class EnrollmentInput {
   declare userId: number
   @Field(() => Number)
   declare courseId: number
+  @Field(() => Number)
+  declare classId: number
 }
