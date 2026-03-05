@@ -1,6 +1,6 @@
 import User from '#models/user'
 import UserService from '#services/user_service'
-import { UserInput } from '#types/user'
+import { UserInput, UserUpdateInput } from '#types/user'
 import { Arg, Int, Mutation, Query, Resolver } from '@foadonis/graphql'
 
 const userService = new UserService()
@@ -25,7 +25,7 @@ export default class UserResolver {
   @Mutation(() => User)
   async updateUser(
     @Arg('id', () => Int) id: number,
-    @Arg('payload', () => UserInput) payload: UserInput
+    @Arg('payload', () => UserUpdateInput) payload: UserUpdateInput
   ) {
     return userService.update(id, payload)
   }

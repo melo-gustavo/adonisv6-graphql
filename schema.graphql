@@ -3,15 +3,55 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Class {
+  course: Course
+  courseId: Float!
+  createdAt: LuxonDateTime!
+  enrollment: [Enrollment!]
+  id: ID!
+  name: String!
+  teacherId: Float!
+  updatedAt: LuxonDateTime!
+}
+
+input ClassInput {
+  courseId: Float!
+  name: String!
+  teacherId: Float!
+}
+
+type Course {
+  createdAt: LuxonDateTime!
+  description: String!
+  id: ID!
+  name: String!
+  updatedAt: LuxonDateTime!
+}
+
+input CourseInput {
+  description: String!
+  name: String!
+}
+
+input CourseUpdateInput {
+  description: String
+  name: String
+}
+
 type Enrollment {
+  class: Class
+  classId: Float!
+  course: Course
   courseId: Float!
   createdAt: LuxonDateTime!
   id: ID!
   updatedAt: LuxonDateTime!
+  user: User
   userId: Float!
 }
 
 input EnrollmentInput {
+  classId: Float!
   courseId: Float!
   userId: Float!
 }
@@ -20,16 +60,26 @@ input EnrollmentInput {
 scalar LuxonDateTime
 
 type Mutation {
+  createClass(payload: ClassInput!): Class!
+  createCourse(payload: CourseInput!): Course!
   createEnrollment(payload: EnrollmentInput!): Enrollment!
   createUser(payload: UserInput!): User!
+  deleteClass(id: Int!): Boolean!
+  deleteCourse(id: Int!): Boolean!
   deleteEnrollment(id: Int!): Boolean!
   deleteUser(id: Int!): Boolean!
-  updateUser(id: Int!, payload: UserInput!): User!
+  updateClass(id: Int!, payload: ClassInput!): Class!
+  updateCourse(id: Int!, payload: CourseUpdateInput!): Course!
+  updateUser(id: Int!, payload: UserUpdateInput!): User!
 }
 
 type Query {
+  getAllClasses: [Class!]!
+  getAllCourses: [Course!]!
   getAllEnrollments: [Enrollment!]!
   getAllUsers: [User!]!
+  getClassById(id: Int!): Class!
+  getCourseById(id: Int!): Course!
   getEnrollmentById(id: Int!): Enrollment!
   getUserById(id: Int!): User!
 }
@@ -49,4 +99,11 @@ input UserInput {
   email: String!
   name: String!
   password: String!
+}
+
+input UserUpdateInput {
+  avatar: String
+  email: String
+  name: String
+  password: String
 }
